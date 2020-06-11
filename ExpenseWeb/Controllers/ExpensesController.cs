@@ -23,11 +23,24 @@ namespace ExpenseWeb.Controllers
             return View(CreateExpensesList());
         }
 
-        public IActionResult D()
+        public IActionResult CreateNewExpense()
         {
-            return View();
+            ExpensesCreateNewExpenseViewModel ecnevm = new ExpensesCreateNewExpenseViewModel();
+            ecnevm.Date = DateTime.Now;
+            return View(ecnevm);
         }
 
+        [HttpPost]
+        public IActionResult CreateNewExpense(ExpensesCreateNewExpenseViewModel model)
+        {
+            if (!TryValidateModel(model))
+            {
+                return View(model);
+            }
+
+
+            return RedirectToAction("Index");
+        }
 
         public List<ExpensesIndexViewModel> CreateExpensesList()
         {
