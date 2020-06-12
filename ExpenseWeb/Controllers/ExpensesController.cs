@@ -109,6 +109,21 @@ namespace ExpenseWeb.Controllers
             return RedirectToAction(model.ReturnUrl);
         }
 
+        [HttpGet]
+        public IActionResult ExpenseDetails(int id)
+        {
+            Expense expenseFromDb = _expensesDB.GetExpense(id);
+            ExpensesExpenseDetailsViewModel eedvm = new ExpensesExpenseDetailsViewModel
+            {
+                Amount = expenseFromDb.Amount,
+                Date = expenseFromDb.Date,
+                Description = expenseFromDb.Description,
+                ID = id
+            };
+
+            return View(eedvm);
+        }
+
         public List<ExpensesIndexViewModel> CreateExpensesList()
         {
             List<Expense> expensesFromDB = _expensesDB.GetExpenses();

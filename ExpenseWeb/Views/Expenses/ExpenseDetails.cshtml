@@ -1,0 +1,23 @@
+﻿@model ExpensesExpenseDetailsViewModel
+
+<div>
+    <h1>Details</h1>
+    <br />
+</div>
+<div>
+    <strong>Date</strong>
+    <p>@Model.Date</p>
+    <br />
+    <strong>Amount</strong>
+    <p>@Model.Amount</p>
+    <br />
+    <strong>Description</strong>
+    <p>@Model.Description</p>
+    <br />
+</div>
+<div>
+    <a asp-controller="Expenses" asp-action="EditExpense" asp-route-id="@Model.ID" asp-route-returnUrl="ExpenseDetails">Edit</a>
+    <a asp-controller="Expenses" asp-action="DeleteExpense" asp-route-id="@Model.ID" asp-route-returnUrl="ExpenseDetails">Delete</a>
+    <br />
+    <a asp-controller="Expenses" asp-action="Index">Back to index</a>
+</div>
