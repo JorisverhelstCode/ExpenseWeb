@@ -131,15 +131,38 @@ namespace ExpenseWeb.Controllers
         {
             List<Expense> expensesFromDB = _expensesDB.GetExpenses();
             List<ExpensesIndexViewModel> expensesInList = new List<ExpensesIndexViewModel>();
-            foreach (var expense in expensesFromDB)
+            if (expensesFromDB.Count != 0)
             {
-                expensesInList.Add(new ExpensesIndexViewModel
+                for (int i = 0; i < expensesFromDB.Count; i++)
                 {
-                    Amount = expense.Amount,
-                    Date = expense.Date
-                });
+                    Expense expense = expensesFromDB.ElementAt(i);
+                    ExpensesIndexViewModel expenseModel = new ExpensesIndexViewModel
+                    {
+                        Amount = expense.Amount,
+                        Date = expense.Date
+                    };
+                    if (i != 0)
+                    {
+                        for (int j = 0; j < expensesInList.Count; j++)
+                        {
+                            if (expenseModel.Date < expensesInList.ElementAt(j).Date)
+                            {
+                                expensesInList.Insert(j, expenseModel);
+                            }
+                            else
+                            {
+                                if (j == expensesInList.Count - 1)
+                                {
+                                    expensesInList.Add(expenseModel);
+                                }
+                            }
+                        }
+                    } else
+                    {
+                        expensesInList.Add(expenseModel);
+                    }
+                }
             }
-
             return expensesInList;
         }
     }
