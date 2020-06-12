@@ -60,7 +60,8 @@ namespace ExpenseWeb.Controllers
                 Amount = expenseFromDb.Amount,
                 Date = expenseFromDb.Date,
                 Description = expenseFromDb.Description,
-                ID = expenseFromDb.ID
+                ID = id,
+                ReturnUrl = returnUrl
             };
 
             return View(edevm);
@@ -71,6 +72,41 @@ namespace ExpenseWeb.Controllers
         {
             _expensesDB.DeleteExpense(model.ID);
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult EditExpense(int id, string returnUrl)
+        {
+            Expense expenseFromDb = _expensesDB.GetExpense(id);
+            ExpensesEditExpenseViewModel eeevm = new ExpensesEditExpenseViewModel
+            {
+                Amount = expenseFromDb.Amount,
+                Date = expenseFromDb.Date,
+                Description = expenseFromDb.Description,
+                ID = id,
+                ReturnUrl = returnUrl
+            };
+
+            return View(eeevm);
+        }
+
+        [HttpPost]
+        public IActionResult EditExpense(ExpensesEditExpenseViewModel model)
+        {
+            if (!TryValidateModel(model))
+            {
+                return View(model);
+            }
+
+            Expense expense = new Expense
+            {
+                Amount = model.Amount,
+                Date = model.Date,
+                Description = model.Description
+            };
+
+            _expensesDB.Update(model.ID, expense);
+            return RedirectToAction(model.ReturnUrl);
         }
 
         public List<ExpensesIndexViewModel> CreateExpensesList()

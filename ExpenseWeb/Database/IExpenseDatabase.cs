@@ -12,6 +12,7 @@ namespace ExpenseWeb.Database
         public void Insert(Expense expense);
         public Expense GetExpense(int id);
         public void DeleteExpense(int id);
+        public void Update(int id, Expense expense);
     }
 
     public class ExpenseDatabase : IExpenseDatabase
@@ -47,5 +48,12 @@ namespace ExpenseWeb.Database
             _expenses.Remove(GetExpense(id));
         }
 
+        public void Update(int id, Expense expense)
+        {
+            Expense toBeUpdatedExpense = GetExpense(id);
+            toBeUpdatedExpense.Amount = expense.Amount;
+            toBeUpdatedExpense.Date = expense.Date;
+            toBeUpdatedExpense.Description = expense.Description;
+        }
     }
 }
