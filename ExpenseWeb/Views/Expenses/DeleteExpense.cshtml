@@ -6,6 +6,7 @@
 <strong>Description:</strong>
 <span>@Model.Description</span>
 <form asp-controller="Expenses" asp-action="DeleteExpense" asp-route-id="@Model.ID" method="post">
+    @Html.AntiForgeryToken()
     <button type="submit" class="btn-danger">Yes</button>
     <a asp-controller="Expenses" asp-action="@Model.ReturnUrl" asp-route-id="@Model.ID">No</a>
 </form>

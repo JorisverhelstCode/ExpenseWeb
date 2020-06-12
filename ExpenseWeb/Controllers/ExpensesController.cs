@@ -33,6 +33,7 @@ namespace ExpenseWeb.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult CreateNewExpense(ExpensesCreateNewExpenseViewModel model)
         {
             if (!TryValidateModel(model))
@@ -48,7 +49,7 @@ namespace ExpenseWeb.Controllers
             };
 
             _expensesDB.Insert(expense);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
@@ -68,10 +69,11 @@ namespace ExpenseWeb.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult DeleteExpense(ExpensesDeleteExpenseViewModel model)
         {
             _expensesDB.DeleteExpense(model.ID);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
@@ -91,6 +93,7 @@ namespace ExpenseWeb.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult EditExpense(ExpensesEditExpenseViewModel model)
         {
             if (!TryValidateModel(model))
@@ -106,7 +109,7 @@ namespace ExpenseWeb.Controllers
             };
 
             _expensesDB.Update(model.ID, expense);
-            return RedirectToAction(model.ReturnUrl);
+            return RedirectToAction(nameof(model.ReturnUrl));
         }
 
         [HttpGet]

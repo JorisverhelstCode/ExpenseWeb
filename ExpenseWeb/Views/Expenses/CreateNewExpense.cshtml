@@ -23,5 +23,7 @@
         <span class="text-danger" asp-validation-for="Description"></span>
     </div>
 
+    @Html.AntiForgeryToken()
+
     <button class="btn btn-primary" type="submit">Create Expense</button>
 </form>
