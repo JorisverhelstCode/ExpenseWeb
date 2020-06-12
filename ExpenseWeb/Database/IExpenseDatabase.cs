@@ -24,6 +24,7 @@ namespace ExpenseWeb.Database
         {
             _expenses = new List<Expense>();
             _counter = 0;
+            FillListWithRandomExpenses();
         }
 
         public List<Expense> GetExpenses()
@@ -54,6 +55,37 @@ namespace ExpenseWeb.Database
             toBeUpdatedExpense.Amount = expense.Amount;
             toBeUpdatedExpense.Date = expense.Date;
             toBeUpdatedExpense.Description = expense.Description;
+        }
+
+        public void FillListWithRandomExpenses()
+        {
+            Insert(new Expense
+            {
+                Amount = 1,
+                Date = DateTime.Now,
+                Description = "test1"
+            });
+
+            Insert(new Expense
+            {
+                Amount = 2,
+                Date = new DateTime(2003, 03, 15),
+                Description = "test2"
+            });
+
+            Insert(new Expense
+            {
+                Amount = 3,
+                Date = new DateTime(1995, 06, 3),
+                Description = "test3"
+            });
+
+            Insert(new Expense
+            {
+                Amount = 4,
+                Date = new DateTime(2000, 01, 28),
+                Description = "test4"
+            });
         }
     }
 }

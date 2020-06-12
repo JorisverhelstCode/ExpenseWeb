@@ -16,7 +16,6 @@ namespace ExpenseWeb.Controllers
         public ExpensesController(IExpenseDatabase db)
         {
             _expensesDB = db;
-            FillListWithRandomExpenses();
         }
 
         [HttpGet]
@@ -110,7 +109,7 @@ namespace ExpenseWeb.Controllers
             };
 
             _expensesDB.Update(model.ID, expense);
-            return RedirectToAction(nameof(model.ReturnUrl));
+            return RedirectToAction(model.ReturnUrl);
         }
 
         [HttpGet]
@@ -143,20 +142,23 @@ namespace ExpenseWeb.Controllers
                         Date = expense.Date,
                         ID = expense.ID
                     };
+                    bool Added = false;
                     if (i != 0)
                     {
                         int count = expensesInList.Count;
                         for (int j = 0; j < count; j++)
                         {
-                            if (expenseModel.Date < expensesInList.ElementAt(j).Date)
+                            if ((expenseModel.Date < expensesInList.ElementAt(j).Date) && !Added)
                             {
                                 expensesInList.Insert(j, expenseModel);
+                                Added = true;
                             }
                             else
                             {
-                                if (j == expensesInList.Count - 1)
+                                if ((j == (count - 1)) && !Added)
                                 {
                                     expensesInList.Add(expenseModel);
+                                    Added = true;
                                 }
                             }
                         }
@@ -167,37 +169,6 @@ namespace ExpenseWeb.Controllers
                 }
             }
             return expensesInList;
-        }
-
-        public void FillListWithRandomExpenses()
-        {
-            _expensesDB.Insert(new Expense
-            {
-                Amount = 1,
-                Date = DateTime.Now,
-                Description = "test1"
-            });
-
-            _expensesDB.Insert(new Expense
-            {
-                Amount = 2,
-                Date = new DateTime(1990),
-                Description = "test2"
-            });
-
-            _expensesDB.Insert(new Expense
-            {
-                Amount = 3,
-                Date = new DateTime(1995),
-                Description = "test3"
-            });
-
-            _expensesDB.Insert(new Expense
-            {
-                Amount = 4,
-                Date = new DateTime(2000),
-                Description = "test4"
-            });
         }
     }
 }
