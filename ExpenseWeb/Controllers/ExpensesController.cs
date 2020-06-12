@@ -13,9 +13,10 @@ namespace ExpenseWeb.Controllers
     {
         private readonly IExpenseDatabase _expensesDB;
 
-        public ExpensesController(ExpenseDatabase db)
+        public ExpensesController(IExpenseDatabase db)
         {
             _expensesDB = db;
+            FillListWithRandomExpenses();
         }
 
         [HttpGet]
@@ -139,11 +140,13 @@ namespace ExpenseWeb.Controllers
                     ExpensesIndexViewModel expenseModel = new ExpensesIndexViewModel
                     {
                         Amount = expense.Amount,
-                        Date = expense.Date
+                        Date = expense.Date,
+                        ID = expense.ID
                     };
                     if (i != 0)
                     {
-                        for (int j = 0; j < expensesInList.Count; j++)
+                        int count = expensesInList.Count;
+                        for (int j = 0; j < count; j++)
                         {
                             if (expenseModel.Date < expensesInList.ElementAt(j).Date)
                             {
@@ -164,6 +167,37 @@ namespace ExpenseWeb.Controllers
                 }
             }
             return expensesInList;
+        }
+
+        public void FillListWithRandomExpenses()
+        {
+            _expensesDB.Insert(new Expense
+            {
+                Amount = 1,
+                Date = DateTime.Now,
+                Description = "test1"
+            });
+
+            _expensesDB.Insert(new Expense
+            {
+                Amount = 2,
+                Date = new DateTime(1990),
+                Description = "test2"
+            });
+
+            _expensesDB.Insert(new Expense
+            {
+                Amount = 3,
+                Date = new DateTime(1995),
+                Description = "test3"
+            });
+
+            _expensesDB.Insert(new Expense
+            {
+                Amount = 4,
+                Date = new DateTime(2000),
+                Description = "test4"
+            });
         }
     }
 }
