@@ -1,2 +1,31 @@
-﻿@Model IEnumerable<>
+﻿@model IEnumerable<ExpensesIndexViewModel>;
+<div>
+    <span>The list of all our expenses</span>
+</div>
 
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>Date of expense</th>
+                <th>Amount expended</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var expense in Model)
+            {
+            <tr>
+                <td>@expense.Date</td>
+                <td>@expense.Amount</td>
+                <td><a asp-controller="Expenses" asp-action="ExpenseDetails" asp-route-id="@expense.ID">Detail</a></td>
+                <td><a asp-controller="Expenses" asp-action="EditExpense" asp-route-id="@expense.ID" asp-route-returnUrl="Index">Edit</a></td>
+                <td><a asp-controller="Expenses" asp-action="DeleteExpense" asp-route-id="@expense.ID" asp-route-returnUrl="Index">Delete</a></td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <a asp-controller="Expenses" asp-action="CreateNewExpense">Create new expense</a>
+</div>

@@ -38,7 +38,14 @@ namespace ExpenseWeb.Controllers
                 return View(model);
             }
 
+            Expense expense = new Expense
+            {
+                Amount = model.Amount,
+                Date = model.Date,
+                Description = model.Description
+            };
 
+            _expensesDB.Insert(expense);
             return RedirectToAction("Index");
         }
 

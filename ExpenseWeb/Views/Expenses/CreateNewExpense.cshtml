@@ -1,4 +1,27 @@
-﻿@Model ExpensesCreateNewExpenseViewModel
+﻿@model ExpensesCreateNewExpenseViewModel;
 
+<div>
+    <strong>Create a new expense</strong>
+</div>
 
+<form asp-controller="Expenses" asp-action="CreateNewExpense" method="post">
+    <div class="form-group">
+        <label asp-for="Amount"></label>
+        <input class="form-control" asp-for="Amount" />
+        <span class="text-danger" asp-validation-for="Amount"></span>
+    </div>
 
+    <div class="form-group">
+        <label asp-for="Date"></label>
+        <input class="form-control" asp-for="Date" />
+        <span class="text-danger" asp-validation-for="Date"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <input class="form-control" asp-for="Description" />
+        <span class="text-danger" asp-validation-for="Description"></span>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Create Expense</button>
+</form>
