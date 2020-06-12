@@ -91,24 +91,65 @@ namespace ExpenseWeb.Database
                 Description = "test4"
             });
         }
+
         public Expense GetHighest()
         {
-            return new Expense();
+            if (_expenses.Count == 0)
+            {
+                return null;
+            }
+
+            Expense highest = _expenses.ElementAt(0);
+            foreach (var expense in _expenses)
+            {
+                if (expense.Amount > highest.Amount)
+                {
+                    highest = expense;
+                }
+            }
+            return highest;
         }
 
         public Expense GetLowest()
         {
-            return new Expense();
+            if (_expenses.Count == 0)
+            {
+                return null;
+            }
+
+            Expense lowest = _expenses.ElementAt(0);
+            foreach (var expense in _expenses)
+            {
+                if (expense.Amount < lowest.Amount)
+                {
+                    lowest = expense;
+                }
+            }
+            return lowest;
         }
 
         public DateTime GetMostSpendDay()
         {
-            return DateTime.Now;
+            var groupedByDate = _expenses.GroupBy(x => x.Date.Date);
+            var sumPerDay = new Dictionary<DateTime, decimal>();
+            foreach (var day in groupedByDate)
+            {
+                var sumFromDay = day.ToList().Sum(x => x.Amount);
+                sumPerDay.Add(day.Key, sumFromDay);
+            }
+            return sumPerDay.OrderByDescending(x => x.Value).First().Key;
         }
 
         public decimal GetMostSpendAmount()
         {
-            return 0;
+            var groupedByDate = _expenses.GroupBy(x => x.Date.Date);
+            var sumPerDay = new Dictionary<DateTime, decimal>();
+            foreach (var day in groupedByDate)
+            {
+                var sumFromDay = day.ToList().Sum(x => x.Amount);
+                sumPerDay.Add(day.Key, sumFromDay);
+            }
+            return sumPerDay.OrderByDescending(x => x.Value).First().Value;
         }
     }
 }

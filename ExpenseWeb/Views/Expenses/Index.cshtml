@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<ExpensesIndexViewModel>;
 <div>
-    <span>The list of all our expenses</span>
+    <h1>De lijst van al uw uitgaven:</h1>
 </div>
 
 <div>
@@ -18,8 +18,8 @@
                 <td>@expense.Date</td>
                 <td>@expense.Amount</td>
                 <td><a asp-controller="Expenses" asp-action="ExpenseDetails" asp-route-id="@expense.ID">Detail</a></td>
-                <td><a asp-controller="Expenses" asp-action="EditExpense" asp-route-id="@expense.ID" asp-route-returnUrl="Index">Edit</a></td>
-                <td><a asp-controller="Expenses" asp-action="DeleteExpense" asp-route-id="@expense.ID" asp-route-returnUrl="Index">Delete</a></td>
+                <td><a asp-controller="Expenses" asp-action="EditExpense" asp-route-id="@expense.ID" asp-route-returnUrl="Index">Wijzig</a></td>
+                <td><a asp-controller="Expenses" asp-action="DeleteExpense" asp-route-id="@expense.ID" asp-route-returnUrl="Index">Verwijder</a></td>
             </tr>
             }
         </tbody>
@@ -27,5 +27,5 @@
 </div>
 
 <div>
-    <a asp-controller="Expenses" asp-action="CreateNewExpense">Create new expense</a>
+    <a asp-controller="Expenses" asp-action="CreateNewExpense">Maak een nieuwe uitgave aan</a>
 </div>
