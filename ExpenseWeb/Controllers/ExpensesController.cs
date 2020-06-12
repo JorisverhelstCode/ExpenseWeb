@@ -18,11 +18,13 @@ namespace ExpenseWeb.Controllers
             _expensesDB = db;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             return View(CreateExpensesList());
         }
 
+        [HttpGet]
         public IActionResult CreateNewExpense()
         {
             ExpensesCreateNewExpenseViewModel ecnevm = new ExpensesCreateNewExpenseViewModel();
@@ -46,6 +48,28 @@ namespace ExpenseWeb.Controllers
             };
 
             _expensesDB.Insert(expense);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult DeleteExpense(int id, string returnUrl)
+        {
+            Expense expenseFromDb = _expensesDB.GetExpense(id);
+            ExpensesDeleteExpenseViewModel edevm = new ExpensesDeleteExpenseViewModel
+            {
+                Amount = expenseFromDb.Amount,
+                Date = expenseFromDb.Date,
+                Description = expenseFromDb.Description,
+                ID = expenseFromDb.ID
+            };
+
+            return View(edevm);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteExpense(ExpensesDeleteExpenseViewModel model)
+        {
+            _expensesDB.DeleteExpense(model.ID);
             return RedirectToAction("Index");
         }
 
