@@ -13,6 +13,10 @@ namespace ExpenseWeb.Database
         public Expense GetExpense(int id);
         public void DeleteExpense(int id);
         public void Update(int id, Expense expense);
+        public Expense GetHighest();
+        public Expense GetLowest();
+        public DateTime GetMostSpendDay();
+        public decimal GetMostSpendAmount();
     }
 
     public class ExpenseDatabase : IExpenseDatabase
@@ -86,6 +90,25 @@ namespace ExpenseWeb.Database
                 Date = new DateTime(2000, 01, 28),
                 Description = "test4"
             });
+        }
+        public Expense GetHighest()
+        {
+            return new Expense();
+        }
+
+        public Expense GetLowest()
+        {
+            return new Expense();
+        }
+
+        public DateTime GetMostSpendDay()
+        {
+            return DateTime.Now;
+        }
+
+        public decimal GetMostSpendAmount()
+        {
+            return 0;
         }
     }
 }

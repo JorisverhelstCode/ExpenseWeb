@@ -1,0 +1,27 @@
+﻿@model StatisticsIndexViewModel
+
+<h1>Statistieken voor uw uitgaven:</h1>
+
+<div>
+    <strong>Grootste bedrag ooit uitgegeven:</strong>
+    <br />
+    <p>@Model.Highest.Amount</p>
+    <p>@Model.Highest.Date</p>
+</div>
+
+<div>
+    <strong>Laagste bedrag ooit uitgegeven:</strong>
+    <br />
+    <p>@Model.Lowest.Amount</p>
+    <p>@Model.Lowest.Date</p>
+</div>
+
+<div>
+    <strong>Totaal grootste bedrag uitgegevn op 1 dag:</strong>
+    <br />
+    <p>@Model.MostSpendAmount</p>
+    <p>@Model.MostSpendDay</p>
+</div>
+
+<a asp-controller="Statistics" asp-action="ExpensesPerMonth">Overzicht uitgaves per maand</a>
+
