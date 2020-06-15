@@ -33,7 +33,12 @@ namespace ExpenseWeb.Controllers
         [HttpGet]
         public IActionResult ExpensesPerMonth(int year)
         {
-            return View();
+            StatisticsExpensesPerMonthViewModel model = new StatisticsExpensesPerMonthViewModel
+            {
+                Year = year,
+                ExpensesPerMonth = _expensesDB.GetExpensesPerMonth(year)
+            };
+            return View(model);
         }
     }
 }

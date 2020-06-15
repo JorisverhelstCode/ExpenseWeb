@@ -8,6 +8,6 @@ namespace ExpenseWeb.Models
     public class StatisticsExpensesPerMonthViewModel
     {
         public int Year { get; set; }
-        public List<int> ExpensesPerMonth { get; set; }
+        public List<decimal> ExpensesPerMonth { get; set; }
     }
 }

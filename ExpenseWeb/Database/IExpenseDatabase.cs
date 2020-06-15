@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ExpenseWeb.Database
@@ -17,6 +18,7 @@ namespace ExpenseWeb.Database
         public Expense GetLowest();
         public DateTime GetMostSpendDay();
         public decimal GetMostSpendAmount();
+        public List<decimal> GetExpensesPerMonth(int year);
     }
 
     public class ExpenseDatabase : IExpenseDatabase
@@ -150,6 +152,18 @@ namespace ExpenseWeb.Database
                 sumPerDay.Add(day.Key, sumFromDay);
             }
             return sumPerDay.OrderByDescending(x => x.Value).First().Value;
+        }
+
+        public List<decimal> GetExpensesPerMonth(int year)
+        {
+            var groupedByMonth = _expenses.Where(x => x.Date.Year == year).GroupBy(x => x.Date.Month);
+            var sumPerMonth = new List<decimal>();
+            foreach (var month in groupedByMonth)
+            {
+                var sumFromMonth = month.ToList().Sum(x => x.Amount);
+                sumPerMonth.Add(sumFromMonth);
+            }
+            return sumPerMonth;
         }
     }
 }
