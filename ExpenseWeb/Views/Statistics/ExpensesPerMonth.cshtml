@@ -1,0 +1,50 @@
+﻿@model StatisticsExpensesPerMonthViewModel
+
+<h1>Uitgaven per maand van @Model.Year</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Januarie</th>
+            <th>Februarie</th>
+            <th>Maart/th>
+            <th>April</th>
+            <th>Mei</th>
+            <th>Juni</th>
+            <th>Juli</th>
+            <th>Augustus</th>
+            <th>September</th>
+            <th>October</th>
+            <th>November</th>
+            <th>December</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.ExpensesPerMonth[0]</td>
+            <td>@Model.ExpensesPerMonth[1]</td>
+            <td>@Model.ExpensesPerMonth[2]</td>
+            <td>@Model.ExpensesPerMonth[3]</td>
+            <td>@Model.ExpensesPerMonth[4]</td>
+            <td>@Model.ExpensesPerMonth[5]</td>
+            <td>@Model.ExpensesPerMonth[6]</td>
+            <td>@Model.ExpensesPerMonth[7]</td>
+            <td>@Model.ExpensesPerMonth[8]</td>
+            <td>@Model.ExpensesPerMonth[9]</td>
+            <td>@Model.ExpensesPerMonth[10]</td>
+            <td>@Model.ExpensesPerMonth[11]</td>
+        </tr>
+    </tbody>
+</table>
+
+<form asp-controller="Statistics" asp-action="ExpensesPerMonth" method="get">
+    <div class="form-group">
+        <label asp-for="Year"></label>
+        <input class="form-control" asp-for="Year" />
+        <span class="text-danger" asp-validation-for="Year"></span>
+    </div>
+
+    <button class="btn btn-primary" type="submit">See expenses of this year</button>
+</form>
+
+<a asp-controller="Statistics" asp-action="Index">Terug naar overzicht</a>

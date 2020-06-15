@@ -29,5 +29,11 @@ namespace ExpenseWeb.Controllers
             };
             return View(sivm);
         }
+
+        [HttpGet]
+        public IActionResult ExpensesPerMonth(int year)
+        {
+            return View();
+        }
     }
 }
